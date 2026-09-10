@@ -1,44 +1,14 @@
-import sqlite3
-DATABASE = "autocuidado.db"
+import os
+import psycopg2
+from dotenv import load_dotenv
 
-def criar_tabela():
-    conexao = sqlite3.connect(DATABASE)
-    cursor = conexao.cursor()
-
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS exercicios (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nome TEXT NOT NULL,
-            series INTEGER NOT NULL,
-            repeticoes INTEGER NOT NULL,
-            carga REAL NOT NULL
-        )
-    """)
-
-    conexao.commit()
-    conexao.close()
+load_dotenv()
 
 
-def salvar_exercicio(nome, series, repeticoes, carga):
-    conexao = sqlite3.connect(DATABASE)
-    cursor = conexao.cursor()
-
-    cursor.execute("""
-        INSERT INTO exercicios (nome, series, repeticoes, carga)
-        VALUES (?, ?, ?, ?)
-    """, (nome, series, repeticoes, carga))
-
-    conexao.commit()
-    conexao.close()
-
-def listar_exercicios():
-    conexao = sqlite3.connect(DATABASE)
-    cursor = conexao.cursor()
-
-    cursor.execute("SELECT * FROM exercicios")
-
-    exercicios = cursor.fetchall()
-
-    conexao.close()
-
-    return exercicios
+def conectar():
+    return psycopg2.connect(
+        host="localhost",
+        database="autocuidado_gym",
+        user="postgres",
+        password=os.getenv("POSTGRES_PASSWORD")
+    )
