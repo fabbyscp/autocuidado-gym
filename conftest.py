@@ -3,9 +3,15 @@ import banco
 
 
 @pytest.fixture(autouse=True)
-def banco_de_teste(tmp_path, monkeypatch):
-    banco_teste = tmp_path / "teste.db"
+def banco_de_teste(monkeypatch):
+    monkeypatch.setenv("POSTGRES_DATABASE", "autocuidado_gym_test")
 
-    monkeypatch.setattr(banco, "DATABASE", str(banco_teste))
+    conexao = banco.conectar()
+    cursor = conexao.cursor()
 
-    banco.criar_tabela()
+    cursor.execute("DELETE FROM exercicios")
+
+    conexao.commit()
+
+    cursor.close()
+    conexao.close()
