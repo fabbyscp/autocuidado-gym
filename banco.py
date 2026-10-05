@@ -36,7 +36,16 @@ def listar_exercicios():
 
     cursor.execute("SELECT * FROM exercicios")
 
-    exercicios = cursor.fetchall()
+    exercicios = [
+    {
+        "id": linha[0],
+        "nome": linha[1],
+        "series": linha[2],
+        "repeticoes": linha[3],
+        "carga": linha[4]
+    }
+    for linha in cursor.fetchall()
+]
 
     cursor.close()
     conexao.close()

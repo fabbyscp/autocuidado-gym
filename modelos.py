@@ -5,3 +5,11 @@ class Exercicio(BaseModel):
     series: int
     repeticoes: int
     carga: float
+
+
+class ExercicioResposta(BaseModel):
+    id: int
+    nome: str
+    series: int
+    repeticoes: int
+    carga: float

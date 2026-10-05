@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from exercicios import criar_exercicio
-from modelos import Exercicio
+from modelos import Exercicio, ExercicioResposta
 from banco import salvar_exercicio
 from banco import listar_exercicios
 
@@ -11,7 +11,7 @@ def inicio():
     return {"mensagem": "AutoCuidado Gym API funcionando!"}
 
 
-@app.get("/exercicios")
+@app.get("/exercicios", response_model=list[ExercicioResposta])
 def listar_exercicios_api():
     return listar_exercicios()
 

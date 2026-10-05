@@ -31,8 +31,8 @@ def test_listar_exercicios():
 
     assert resposta.status_code == 200
     assert len(resposta.json()) == 2
-    assert resposta.json()[0][1] == "Supino"
-    assert resposta.json()[1][1] == "Leg Press"
+    assert resposta.json()[0]["nome"] == "Supino"
+    assert resposta.json()[1]["nome"] == "Leg Press"
 
 def test_criar_exercicio():
     resposta = client.post(
@@ -51,7 +51,7 @@ def test_criar_exercicio():
     exercicios = listar_exercicios()
 
     assert len(exercicios) == 1
-    assert exercicios[0][1] == "Agachamento"
+    assert exercicios[0]["nome"] == "Agachamento"
 
 def test_criar_exercicio_sem_nome():
     resposta = client.post(
