@@ -26,11 +26,21 @@ Além de ser uma aplicação prática, o projeto funciona como ambiente de apren
 - Docker
 - Docker Compose
 
+### 📌 Funcionalidades implementadas
+
+- Criar exercícios
+- Listar exercícios
+- Atualizar exercícios
+- Excluir exercícios
+- Validação de dados com Pydantic
+- Testes automatizados da API
+- Persistência de dados no PostgreSQL
+
 ### 🔄 Próximos passos
 
-- CRUD completo
-- Autenticação
+- Autenticação com JWT
 - GitHub Actions / CI
+- Deploy / Cloud
 - AWS
 - Integração com LLMs
 - RAG
@@ -54,6 +64,8 @@ O projeto possui testes automatizados utilizando pytest.
 
 Os testes verificam o funcionamento da API e da integração com o banco de dados.
 
+Atualmente, a suíte de testes possui 6 testes passando.
+
 ## 📚 Aprendizado
 
 O desenvolvimento segue o ciclo:
@@ -66,7 +78,9 @@ O objetivo é compreender não apenas o código, mas também como as diferentes 
 
 🟡 Projeto em desenvolvimento.
 
-Atualmente, a aplicação possui FastAPI integrado ao PostgreSQL e executando em containers Docker através do Docker Compose.
+Atualmente, a aplicação possui uma API REST desenvolvida com FastAPI, integrada ao PostgreSQL e executando em containers Docker através do Docker Compose.
+
+O CRUD de exercícios está implementado e testado.
 
 ## 💻 Objetivo profissional
 
