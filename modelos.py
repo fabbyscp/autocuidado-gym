@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 
+
 class Exercicio(BaseModel):
     nome: str = Field(min_length=1)
     series: int
@@ -13,3 +14,8 @@ class ExercicioResposta(BaseModel):
     series: int
     repeticoes: int
     carga: float
+
+
+class Usuario(BaseModel):
+    email: str
+    senha: str
