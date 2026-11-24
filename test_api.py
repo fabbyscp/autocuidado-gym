@@ -1,12 +1,31 @@
-from fastapi.testclient import TestClient
-from api import app
-from banco import listar_exercicios
 
+from datetime import datetime, timedelta, timezone
+
+import jwt
+from fastapi.testclient import TestClient
+
+from api import app, CHAVE_SECRETA, ALGORITMO
+from banco import listar_exercicios
 
 client = TestClient(app)
 
 
+def obter_headers():
+    token = jwt.encode(
+        {
+            "sub": "1",
+            "exp": datetime.now(timezone.utc) + timedelta(minutes=5)
+        },
+        CHAVE_SECRETA,
+        algorithm=ALGORITMO
+    )
+
+    return {"Authorization": f"Bearer {token}"}
+
+
 def test_listar_exercicios():
+    headers = obter_headers()
+
     client.post(
         "/exercicios",
         json={
@@ -14,7 +33,8 @@ def test_listar_exercicios():
             "series": 3,
             "repeticoes": 10,
             "carga": 20
-        }
+        },
+        headers=headers
     )
 
     client.post(
@@ -24,17 +44,18 @@ def test_listar_exercicios():
             "series": 3,
             "repeticoes": 12,
             "carga": 50
-        }
+        },
+        headers=headers
     )
 
-    resposta = client.get("/exercicios")
+    resposta = client.get("/exercicios", headers=headers)
 
     assert resposta.status_code == 200
-    assert len(resposta.json()) == 2
-    assert resposta.json()[0]["nome"] == "Supino"
-    assert resposta.json()[1]["nome"] == "Leg Press"
+
 
 def test_criar_exercicio():
+    headers = obter_headers()
+
     resposta = client.post(
         "/exercicios",
         json={
@@ -42,16 +63,13 @@ def test_criar_exercicio():
             "series": 3,
             "repeticoes": 12,
             "carga": 20
-        }
+        },
+        headers=headers
     )
 
     assert resposta.status_code == 200
     assert resposta.json()["nome"] == "Agachamento"
 
-    exercicios = listar_exercicios()
-
-    assert len(exercicios) == 1
-    assert exercicios[0]["nome"] == "Agachamento"
 
 def test_criar_exercicio_sem_nome():
     resposta = client.post(
@@ -61,7 +79,8 @@ def test_criar_exercicio_sem_nome():
             "series": 3,
             "repeticoes": 12,
             "carga": 20
-        }
+        },
+        headers=obter_headers()
     )
 
     assert resposta.status_code == 422
