@@ -1,96 +1,112 @@
-# ❤️ AutoCuidado Gym
+# AutoCuidado Gym API
 
-Projeto-escola de Backend desenvolvido em Python durante minha transição para a área de Tecnologia.
+API REST para gerenciamento de exercícios físicos, desenvolvida com Python e FastAPI. O projeto utiliza PostgreSQL para persistência de dados, autenticação JWT, testes automatizados e Docker.
 
-O projeto está sendo construído de forma incremental para aprender, implementar, testar e documentar tecnologias utilizadas no desenvolvimento Backend e, futuramente, em aplicações com Inteligência Artificial.
+A aplicação foi desenvolvida como projeto prático de Backend, contemplando desenvolvimento de APIs, integração com banco de dados, autenticação, testes e deploy em ambiente de produção.
 
-## 🎯 Objetivo
+## Demonstração
 
-O AutoCuidado Gym é uma aplicação para registro e acompanhamento de treinos.
+- **API em produção:** https://autocuidado-gym.onrender.com
+- **Documentação interativa (Swagger):** https://autocuidado-gym.onrender.com/docs
 
-Além de ser uma aplicação prática, o projeto funciona como ambiente de aprendizado para desenvolvimento Backend.
+## Tecnologias
 
-## 🛠️ Tecnologias
-
-### ✅ Implementado
-
-- Python
+- Python 3.12
 - FastAPI
-- API REST
 - PostgreSQL
 - psycopg2
 - Pydantic
-- Swagger
-- pytest
+- JWT (PyJWT)
+- Bcrypt
+- Docker e Docker Compose
+- Pytest
 - Git e GitHub
-- Docker
-- Docker Compose
+- GitHub Actions
+- Render
+- Neon
 
-### 📌 Funcionalidades implementadas
+## Funcionalidades
 
+### Autenticação
+- Cadastro de usuários
+- Armazenamento de senhas com hash bcrypt
+- Login com autenticação JWT
+- Proteção das rotas de exercícios por token
+
+### Gerenciamento de exercícios
 - Criar exercícios
 - Listar exercícios
 - Atualizar exercícios
 - Excluir exercícios
 - Validação de dados com Pydantic
-- Testes automatizados da API
-- Persistência de dados no PostgreSQL
 
-### 🔄 Próximos passos
+## Endpoints
 
-- Autenticação com JWT
-- GitHub Actions / CI
-- Deploy / Cloud
-- AWS
-- Integração com LLMs
-- RAG
-- Embeddings
-- Banco de dados vetorial
+| Método | Rota | Descrição | Autenticação |
+|---|---|---|---|
+| POST | `/usuarios` | Cadastrar usuário | Não |
+| POST | `/login` | Realizar login | Não |
+| GET | `/exercicios` | Listar exercícios | Sim |
+| POST | `/exercicios` | Criar exercício | Sim |
+| PUT | `/exercicios/{id}` | Atualizar exercício | Sim |
+| DELETE | `/exercicios/{id}` | Excluir exercício | Sim |
 
-## 🐳 Docker
+## Banco de dados
 
-O projeto utiliza Docker Compose para executar a aplicação em containers separados:
+O projeto utiliza PostgreSQL para armazenar usuários e exercícios.
 
-- FastAPI
-- PostgreSQL
+A conexão é configurada por variáveis de ambiente, permitindo utilizar diferentes bancos de dados nos ambientes local e de produção.
 
-Os containers se comunicam através da rede criada pelo Docker Compose.
+## Testes automatizados
 
-Um volume é utilizado para persistir os dados do PostgreSQL.
+Os testes são desenvolvidos com Pytest e verificam o funcionamento da API e suas operações.
 
-## 🧪 Testes
+- 6 testes automatizados passando.
+- Integração contínua configurada com GitHub Actions.
 
-O projeto possui testes automatizados utilizando pytest.
+## Docker
 
-Os testes verificam o funcionamento da API e da integração com o banco de dados.
+A aplicação utiliza Docker Compose para executar a API e o PostgreSQL em containers separados.
 
-Atualmente, a suíte de testes possui 6 testes passando.
+## Executar localmente
 
-## 📚 Aprendizado
+### 1. Clonar o repositório
 
-O desenvolvimento segue o ciclo:
+```bash
+git clone https://github.com/fabbyscp/autocuidado-gym.git
+cd autocuidado-gym
+```
 
-**Aprender → Implementar → Testar → Entender → Aplicar → Versionar**
+### 2. Configurar as variáveis de ambiente
 
-O objetivo é compreender não apenas o código, mas também como as diferentes tecnologias se conectam em uma aplicação real.
+Crie um arquivo `.env` na raiz do projeto com as configurações do banco de dados e a chave JWT.
 
-## 🚧 Status
+Não compartilhe nem versione esse arquivo.
 
-🟡 Projeto em desenvolvimento.
+### 3. Iniciar os containers
 
-Atualmente, a aplicação possui uma API REST desenvolvida com FastAPI, integrada ao PostgreSQL e executando em containers Docker através do Docker Compose.
+```bash
+docker compose up -d --build
+```
 
-O CRUD de exercícios está implementado e testado.
+### 4. Acessar a documentação
 
-## 💻 Objetivo profissional
+Com a aplicação em execução:
 
-Este projeto faz parte da minha transição para Tecnologia e tem como objetivo desenvolver experiência prática em:
+http://localhost:8000/docs
 
-- Python
-- Desenvolvimento Backend
-- APIs
-- Bancos de dados
-- Testes automatizados
-- Docker
-- Cloud
-- Inteligência Artificial e LLMs
+### 5. Executar os testes
+
+```bash
+pytest
+```
+
+## Deploy
+
+A API está publicada no Render e utiliza PostgreSQL hospedado no Neon.
+
+## Objetivo do projeto
+
+O AutoCuidado Gym faz parte da minha trajetória de desenvolvimento na área de Tecnologia, com foco em Python, Backend e construção de aplicações.
+
+O projeto permitiu praticar conceitos importantes de desenvolvimento de software, desde a implementação de endpoints até autenticação, persistência de dados, testes automatizados e publicação em produção.
