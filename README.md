@@ -70,6 +70,8 @@ A aplicação utiliza Docker Compose para executar a API e o PostgreSQL em conta
 
 ## Executar localmente
 
+## Executar localmente
+
 ### 1. Clonar o repositório
 
 ```bash
@@ -91,7 +93,7 @@ docker compose up -d --build
 
 ### 4. Acessar a documentação
 
-Com a aplicação em execução:
+Com a aplicação em execução, acesse:
 
 http://localhost:8000/docs
 
